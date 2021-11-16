@@ -11,6 +11,7 @@ from PyQt5.QtGui import QIcon, QPainter, QPixmap, QPen, QColor, QPalette, QBrush
 import sqlite3
 from alr_window import Alarm_window
 
+
 class QStrelka(QLabel):
     def __init__(self, par):
         super(QStrelka, self).__init__(par)
@@ -98,45 +99,11 @@ class SETTINGS(QWidget):
         self.setStyleSheet("background-color: rgb(50, 50, 50);")
         self.setStyleSheet("background-image: paku.jpg;")
 
-        self.fon = QPushButton(self)
-        self.fon.resize(400, 400)
-        self.fon.move(0, 0)
-        self.fon.setIcon(QIcon('16.jpg'))
-        self.fon.setFont(QtGui.QFont("Times", 120))
-
-        self.theme = QPushButton(self)
-        self.theme.resize(190, 60)
-        self.theme.move(20, 25)
-        self.theme.setIcon(QIcon('91e.png'))
-        self.theme.setFont(QtGui.QFont("Times", 12))
-        self.theme.setText('СМЕНИТЬ ТЕМУ')
-        self.theme.clicked.connect(self.smen)
-
-        self.clay = QPushButton(self)
-        self.clay.resize(30, 30)
-        self.clay.move(180, 38)
-        self.clay.setIcon(QIcon('91e.png'))
-        self.clay.setFont(QtGui.QFont("Times", 12))
-        self.clay.setText('>')
-        self.clay.clicked.connect(self.smen)
-
-        self.derect = QPushButton(self)
-        self.derect.resize(55, 55)
-        self.derect.move(20, 100)
-        self.derect.setIcon(QIcon('91e.png'))
-        self.derect.setFont(QtGui.QFont("Times", 125))
-
-        self.stat = QPushButton(self)
-        self.stat.resize(190, 60)
-        self.stat.move(20, 335)
-        self.stat.setIcon(QIcon('91e.png'))
-        self.stat.setFont(QtGui.QFont("Times", 125))
-
-        self.clear = QPushButton(self)
-        self.clear.resize(190, 40)
-        self.clear.move(20, 285)
-        self.clear.setIcon(QIcon('91e.png'))
-        self.clear.setFont(QtGui.QFont("Times", 125))
+        self.texted = QLabel(self)
+        self.texted.setText('Для настройки времени,')
+        self.texted1 = QLabel(self)
+        self.texted1.move(0, 10)
+        self.texted1.setText('перейдите в настройки устройстова')
 
     def smen(self):
         if self.col == True:
@@ -272,16 +239,16 @@ class MAIN_WINDOW1(QWidget):
         self.puls_button = QPushButton(self)
         self.puls_button.resize(260, 60)
         self.puls_button.move(200, 130)
-        self.puls_button.setIcon(QIcon('91e.png'))
-        self.puls_button.setFont(QtGui.QFont("Times", 125))
+        self.puls_button.setText('Connecting with sourses')
+        self.puls_button.setFont(QtGui.QFont("Times", 12))
         self.puls_button.clicked.connect(self.pulsed)
         self.puls_button.hide()
 
         self.pre_button = QPushButton(self)
         self.pre_button.resize(260, 60)
         self.pre_button.move(200, 210)
-        self.pre_button.setIcon(QIcon('91e.png'))
-        self.pre_button.setFont(QtGui.QFont("Times", 125))
+        self.pre_button.setText('Functionality')
+        self.pre_button.setFont(QtGui.QFont("Times", 12))
         self.pre_button.clicked.connect(self.presh)
         self.pre_button.hide()
 
@@ -373,7 +340,7 @@ class MAIN_WINDOW1(QWidget):
         self.health = QPushButton(self)
         self.health.resize(60, 60)
         self.health.move(570, 330)
-        self.health.setIcon(QIcon('91e.png'))
+        self.health.setIcon(QIcon('black.png'))
         self.health.setFont(QtGui.QFont("Times", 125))
         self.health.clicked.connect(self.ds)
 
@@ -395,7 +362,7 @@ class MAIN_WINDOW1(QWidget):
         # self.blist.resize(100,100)
         # self.blist.move(200,0)
 
-        #self.alarms = QListWidget(self)
+        # self.alarms = QListWidget(self)
         self.alarms = QTableWidget(self)
         self.alarms.resize(550, 220)
         self.alarms.move(50, 50)
@@ -403,10 +370,10 @@ class MAIN_WINDOW1(QWidget):
         self.alarms.setFont(QtGui.QFont("Times", 15))
         # self.alarms.pressed.connect(self.appilation)
         self.alarms.hide()
-        #self.alarms.se(False)
+        # self.alarms.se(False)
         self.alarms.itemDoubleClicked.connect(self.alr_edit)
-        #self.alarms.itemClicked.connect(self.alr_edit)
-        #self.alarms.doubleClicked.connect(self.alr_edit)
+        # self.alarms.itemClicked.connect(self.alr_edit)
+        # self.alarms.doubleClicked.connect(self.alr_edit)
         self.get_result()
 
         self.alrm_add = QPushButton(self)
@@ -447,7 +414,7 @@ class MAIN_WINDOW1(QWidget):
         wa.time_edit.setText(times)
 
         print(actives)
-        if actives=='Вкл':
+        if actives == 'Вкл':
             wa.active_check.setChecked(True)
         else:
             wa.active_check.setChecked(False)
@@ -457,14 +424,14 @@ class MAIN_WINDOW1(QWidget):
             mod = {}
             mod["name"] = wa.name_edit.text()
             mod["time"] = wa.time_edit.text()
-            if wa.active_check.isChecked()==True:
+            if wa.active_check.isChecked() == True:
                 mod["activate"] = 1
 
             else:
                 mod["activate"] = 0
 
             que = "UPDATE id SET "
-            que += ",".join([f"{key}='{mod.get(key)}'"for key in mod.keys()])
+            que += ",".join([f"{key}='{mod.get(key)}'" for key in mod.keys()])
             que += " WHERE id = " + ids
 
             cur = self.con.cursor()
@@ -476,10 +443,11 @@ class MAIN_WINDOW1(QWidget):
     def alr_add(self):
         wa = Alarm_window()
         if wa.exec():
-            #Добавление
+            # Добавление
             cur = self.con.cursor()
             if wa.active_check.isChecked:
-                cur.execute("INSERT INTO id(name,time,activate) VALUES ('" + wa.name_edit.text() + "','" + wa.time_edit.text()+"',1)")
+                cur.execute(
+                    "INSERT INTO id(name,time,activate) VALUES ('" + wa.name_edit.text() + "','" + wa.time_edit.text() + "',1)")
             else:
                 cur.execute(
                     "INSERT INTO id(name,time,activate) VALUES ('" + wa.name_edit.text() + "','" + wa.time_edit.text() + "',0)")
@@ -489,7 +457,6 @@ class MAIN_WINDOW1(QWidget):
 
         else:
             print("cancel")
-
 
     def alr_del(self):
         rows = list(set([i.row() for i in self.alarms.selectedItems()]))
@@ -560,7 +527,6 @@ class MAIN_WINDOW1(QWidget):
         self.alrm_add.hide()
         self.alrm_del.hide()
 
-
         if self.mode == 0:
             self.main_watch.show()
             self.clock.show()
@@ -605,15 +571,14 @@ class MAIN_WINDOW1(QWidget):
         self.clock.sec = datetime.datetime.now().second
         self.clock.hour = datetime.datetime.now().hour
 
-
-        #проверка срабатывания будильников
+        # проверка срабатывания будильников
         c = self.con.cursor()
         result = c.execute("SELECT name,id FROM id WHERE activate = '1' and time = '" +
-                           self.main_watch.text()+"'").fetchall()
+                           self.main_watch.text() + "'").fetchall()
 
         for e in result:
             QMessageBox.question(self, 'Будильник', "Внимание будильник " + e[0],
-                                               QMessageBox.Ok)
+                                 QMessageBox.Ok)
 
             que = "UPDATE id SET activate = '0' WHERE id= " + str(e[1])
             print(que)
@@ -643,30 +608,28 @@ class MAIN_WINDOW1(QWidget):
         self.alarms.clear()
         self.alarms.setRowCount(len(result))
         self.alarms.setColumnCount(4)
-        self.alarms.setHorizontalHeaderItem(0,QTableWidgetItem(str("Наименование")))
+        self.alarms.setHorizontalHeaderItem(0, QTableWidgetItem(str("Наименование")))
         self.alarms.setHorizontalHeaderItem(1, QTableWidgetItem(str("Время")))
         self.alarms.setHorizontalHeaderItem(2, QTableWidgetItem(str("Включен")))
         self.alarms.setHorizontalHeaderItem(3, QTableWidgetItem(str("Идент")))
 
-        self.alarms.setColumnWidth(0,250)
+        self.alarms.setColumnWidth(0, 250)
         self.alarms.setColumnWidth(3, 5)
         self.alarms.verticalHeader().hide()
 
-        i=0
+        i = 0
         for e in result:
             self.alarms.setItem(i, 0, QTableWidgetItem(str(e[0])))
             self.alarms.setItem(i, 1, QTableWidgetItem(str(e[1])))
-            if e[2]==1:
+            if e[2] == 1:
                 self.alarms.setItem(i, 2, QTableWidgetItem(str("Вкл")))
             else:
                 self.alarms.setItem(i, 2, QTableWidgetItem(str("Выкл")))
 
             self.alarms.setItem(i, 3, QTableWidgetItem(str(e[3])))
-            i+=1
-            #self.alarms.addItem(str(e[0])+"   "+str(e[1]))
+            i += 1
+            # self.alarms.addItem(str(e[0])+"   "+str(e[1]))
         self.alarms.setColumnWidth(3, 5)
-
-
 
         self.con.commit()
 
@@ -698,7 +661,7 @@ class MAIN_WINDOW1(QWidget):
         pass
 
     def sbrosed(self):
-        self.timer_data = datetime.datetime(year=2000, month=1, day=1, hour=0, minute=0,second=0)
+        self.timer_data = datetime.datetime(year=2000, month=1, day=1, hour=0, minute=0, second=0)
         self.tw.setText(str(self.timer_data.strftime("%H:%M:%S")))
 
 

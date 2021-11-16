@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialogButtonBox,QDialog, QLabel, QVBoxLayout, QCheckBox, QLineEdit
+from PyQt5.QtWidgets import QDialogButtonBox, QDialog, QLabel, QVBoxLayout, QCheckBox, QLineEdit
 
 
 class Alarm_window(QDialog):
@@ -22,14 +22,14 @@ class Alarm_window(QDialog):
         self.name_edit = QLineEdit()
         time_l = QLabel("Время")
         self.time_edit = QLineEdit()
-        #active_l = QLabel("Установлено")
+        # active_l = QLabel("Установлено")
         self.active_check = QCheckBox("Активен")
 
         self.layout.addWidget(name_l)
         self.layout.addWidget(self.name_edit)
         self.layout.addWidget(time_l)
         self.layout.addWidget(self.time_edit)
-        #self.layout.addWidget(active_l)
+        # self.layout.addWidget(active_l)
         self.layout.addWidget(self.active_check)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
