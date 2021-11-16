@@ -202,7 +202,7 @@ class MAIN_WINDOW1(QWidget):
 
     def initUI(self):
         self.setGeometry(300, 300, 700, 400)
-        self.setWindowTitle("PROJECT 'HEALTH AND TIME'")
+        self.setWindowTitle("PROJECT 'Smart Watch'")
         self.setAutoFillBackground(False)
         self.palf = QPalette()
         self.palf.setBrush(QPalette.Background, QBrush(QPixmap("DA.jpg")))
